@@ -408,7 +408,8 @@ If you use this software, please cite the SmartTunnel project as follows.
   year         = {2026},
   version      = {2.0.0},
   license      = {MIT},
-  url          = {https://github.com/cyrilvoyant/tunnel-load-simulator},
+  doi          = {10.5281/zenodo.20080042},
+  url          = {https://doi.org/10.5281/zenodo.20080042},
   note         = {Collaboration between Université Sidi Mohamed Ben Abdellah (USMBA),
                   Fès, Morocco and Mines Paris -- PSL, OIE Laboratory, France.}
 }
@@ -416,7 +417,7 @@ If you use this software, please cite the SmartTunnel project as follows.
 
 ### Plain text
 
-> El-Houari, H. and Voyant, C. (2026). *Tunnel Load Simulator — SmartTunnel project* (version 2.0.0) [Computer software]. Collaboration between Université Sidi Mohamed Ben Abdellah (USMBA), Fès, Morocco and Mines Paris – PSL, OIE Laboratory, France. https://github.com/cyrilvoyant/tunnel-load-simulator
+> El-Houari, H. and Voyant, C. (2026). *Tunnel Load Simulator — SmartTunnel project* (version 2.0.0) [Computer software]. Collaboration between Université Sidi Mohamed Ben Abdellah (USMBA), Fès, Morocco and Mines Paris – PSL, OIE Laboratory, France. Zenodo: https://doi.org/10.5281/zenodo.20080042, source code: https://github.com/cyrilvoyant/tunnel-load-simulator
 
 A machine-readable `CITATION.cff` file is provided at the repository root and is automatically picked up by GitHub, Zenodo and Google Scholar.
 
