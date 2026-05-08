@@ -47,11 +47,14 @@ hide_streamlit_style = """
     footer {visibility: hidden;}
     header {visibility: hidden;}
     div[data-testid="stToolbar"] {visibility: hidden;}
-    
+    .stApp footer {display: none !important;}
     /* Optionnel : cacher aussi le "Made with Streamlit" */
-    .stApp footer {
-        display: none !important;
+    /* Force sidebar visible */
+    section[data-testid="stSidebar"] {
+        display: block !important;
+        visibility: visible !important;
     }
+    
     </style>
 """
 
