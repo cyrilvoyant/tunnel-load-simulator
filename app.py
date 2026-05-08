@@ -3,6 +3,17 @@ app.py — Streamlit UI for the synthetic tunnel-load generator.
 
 The simulation engine lives in simulator.py (pure NumPy/pandas, no UI).
 This file is purely the visualization / interaction layer.
+
+Project
+-------
+Part of the **SmartTunnel** research project, a collaboration between:
+
+  * Haytham El-Houari, PhD — Université Sidi Mohamed Ben Abdellah (USMBA),
+    Fès, Morocco.
+  * Cyril Voyant, Professor — Mines Paris – PSL, OIE Laboratory (Centre
+    Observation, Impacts, Énergie), France.
+
+License: MIT. See CITATION.cff for the canonical citation entry.
 """
 
 from __future__ import annotations
@@ -25,7 +36,7 @@ from simulator import (
 # =============================================================================
 
 st.set_page_config(
-    page_title="Tunnel Load Simulator",
+    page_title="Tunnel Load Simulator — SmartTunnel project",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -206,8 +217,8 @@ def plot_kpi_distributions(kpis_df: pd.DataFrame) -> go.Figure:
 
 st.title("⚡ Synthetic Tunnel Load Generator")
 st.caption(
-    "Vectorized Monte Carlo simulator — lighting, ventilation, auxiliary loads, "
-    "traffic peaks, pollution & accident events."
+    "**SmartTunnel project** — vectorized Monte Carlo simulator covering lighting, "
+    "ventilation, auxiliary loads, traffic peaks, pollution & accident events."
 )
 
 with st.sidebar:
@@ -420,4 +431,25 @@ st.warning(
     "publication use, calibrate specific lighting, ventilation and auxiliary "
     "parameters against measured consumption, traffic counts, tunnel geometry "
     "and operating rules."
+)
+
+# =============================================================================
+# Project attribution (SmartTunnel)
+# =============================================================================
+
+st.divider()
+st.markdown(
+    """
+    ### SmartTunnel project
+
+    This tool is part of the **SmartTunnel** research project, a collaboration between:
+
+    - **Haytham El-Houari**, PhD — Université Sidi Mohamed Ben Abdellah (USMBA),
+      Fès, Morocco.
+    - **Cyril Voyant**, Professor — Mines Paris – PSL, OIE Laboratory
+      (Centre Observation, Impacts, Énergie), France.
+
+    Released under the MIT License. If you use this tool in academic work,
+    please cite it via the `CITATION.cff` file in the repository.
+    """
 )
