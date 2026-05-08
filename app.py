@@ -40,7 +40,22 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+# ===================== MASQUER ELEMENTS STREAMLIT =====================
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    div[data-testid="stToolbar"] {visibility: hidden;}
+    
+    /* Optionnel : cacher aussi le "Made with Streamlit" */
+    .stApp footer {
+        display: none !important;
+    }
+    </style>
+"""
 
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # =============================================================================
 # Cached Monte Carlo wrapper
@@ -452,4 +467,17 @@ st.markdown(
     Released under the MIT License. If you use this tool in academic work,
     please cite it via the `CITATION.cff` file in the repository.
     """
+)
+# ===================== CUSTOM FOOTER =====================
+st.markdown("---")
+st.markdown(
+    """
+    <div style="text-align: center; color: #555; font-size: 0.8em; padding: 15px 0;">
+        <a href="https://github.com/cyrilvoyant/tunnel-load-simulator" target="_blank" style="text-decoration: none; color: #0066cc;">
+            🔗 GitHub
+        </a> • 
+        Collaboration Mines Paris-PSL & Université Sidi Mohamed Ben Abdellah
+    </div>
+    """, 
+    unsafe_allow_html=True
 )
