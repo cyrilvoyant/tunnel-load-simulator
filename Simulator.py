@@ -3,6 +3,17 @@ simulator.py — pure simulation engine for road-tunnel electrical loads.
 
 No Streamlit dependency. Importable as a regular Python module.
 Vectorized NumPy/pandas. Suitable for batch Monte Carlo studies.
+
+Project
+-------
+Part of the **SmartTunnel** research project, a collaboration between:
+
+  * Haytham El-Houari, PhD — Université Sidi Mohamed Ben Abdellah (USMBA),
+    Fès, Morocco.
+  * Cyril Voyant, Professor — Mines Paris – PSL, OIE Laboratory (Centre
+    Observation, Impacts, Énergie), France.
+
+License: MIT. See CITATION.cff for the canonical citation entry.
 """
 
 from __future__ import annotations
