@@ -1,5 +1,6 @@
 # Tunnel Load Simulator
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20080042.svg)](https://doi.org/10.5281/zenodo.20080042)
+
 A vectorized **Monte Carlo** generator of synthetic electrical load profiles for road tunnels. Streamlit application that produces realistic time series of total electrical power and energy demand based on tunnel geometry, operating context, traffic patterns, and stochastic disturbances (pollution episodes, accidents, sensor noise).
 
 > **Status:** first-order synthetic generator. Suitable for prototyping, tooling demos, and pre-design sensitivity studies. **Calibrate against measured data** before any engineering or publication use.
