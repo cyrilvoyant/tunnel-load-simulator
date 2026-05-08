@@ -2,24 +2,33 @@ cff-version: 1.2.0
 title: "Tunnel Load Simulator — SmartTunnel project"
 message: "If you use this software, please cite it as below."
 type: software
+
 authors:
   - given-names: "Haytham"
     family-names: "El-Houari"
     affiliation: "Université Sidi Mohamed Ben Abdellah (USMBA), Fès, Morocco"
-    # orcid: "https://orcid.org/0000-0003-4668-1959"  # optional, fill when available
+
   - given-names: "Cyril"
     family-names: "Voyant"
-    affiliation: "Mines Paris – PSL, OIE Laboratory (Centre Observation, Impacts, Énergie), France"
-    # orcid: "https://orcid.org/0000-0003-0242-7377"  # optional, fill when available
+    affiliation: "Mines Paris – PSL, O.I.E. Laboratory, France"
+    orcid: "https://orcid.org/0000-0003-0242-7377"
+
 repository-code: "https://github.com/cyrilvoyant/tunnel-load-simulator"
+url: "https://doi.org/10.5281/zenodo.20080042"
+doi: "10.5281/zenodo.20080042"
+version: "v1.0.1"
+date-released: "2026-05-08"
+license: "MIT"
+
 abstract: >
   A vectorized Monte Carlo generator of synthetic electrical load profiles
   for road tunnels. The tool models lighting, ventilation, and auxiliary
   power demand as a function of tunnel geometry, traffic patterns, and
-  stochastic disturbances (pollution episodes, accidents). Developed as
-  part of the SmartTunnel research project, a collaboration between the
-  University Sidi Mohamed Ben Abdellah (USMBA, Fès, Morocco) and the OIE
-  laboratory at Mines Paris – PSL.
+  stochastic disturbances such as pollution episodes and accidents.
+  Developed as part of the SmartTunnel research project, a collaboration
+  between Université Sidi Mohamed Ben Abdellah (USMBA, Fès, Morocco) and
+  Mines Paris – PSL, O.I.E. Laboratory, France.
+
 keywords:
   - SmartTunnel
   - road tunnel
@@ -29,8 +38,3 @@ keywords:
   - tunnel ventilation
   - tunnel lighting
   - energy demand modeling
-license: MIT
-version: "2.0.0"
-date-released: "2026-05-08"
-doi: 10.5281/zenodo.20080042
-url: https://doi.org/10.5281/zenodo.20080042
