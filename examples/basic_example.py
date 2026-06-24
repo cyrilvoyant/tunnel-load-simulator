@@ -1,9 +1,8 @@
 """
 Basic example for Tunnel Load Simulator.
+Runs a single realization and prints key indicators.
 """
-
 import pandas as pd
-
 from simulator import TunnelConfig, simulate_one_realization
 
 cfg = TunnelConfig(
@@ -32,10 +31,20 @@ cfg = TunnelConfig(
 
 df = simulate_one_realization(
     pd.Timestamp("2024-01-01"),
-    30,
+    365,
     10,
     cfg,
     seed=42,
 )
 
-print(df.head())
+# Key indicators
+annual_energy_mwh = df["energy_kwh"].sum() / 1000
+peak_power_kw = df["power_kw"].max()
+mean_power_kw = df["power_kw"].mean()
+load_factor = mean_power_kw / peak_power_kw
+
+print("=== Single realization — Key indicators ===")
+print(f"  Annual energy : {annual_energy_mwh:.1f} MWh")
+print(f"  Peak power    : {peak_power_kw:.1f} kW")
+print(f"  Mean power    : {mean_power_kw:.1f} kW")
+print(f"  Load factor   : {load_factor:.3f}")
