@@ -35,8 +35,6 @@ If you use this software in academic work, please cite it (see *Citation* sectio
 
 ## Repository layout
 
-```
-## Repository layout
 
 ```text
 .
