@@ -3,7 +3,7 @@ Basic example for Tunnel Load Simulator.
 Runs a single realization and prints key indicators.
 """
 import pandas as pd
-from simulator import TunnelConfig, simulate_one_realization
+from tunnel_load_simulator.simulator import TunnelConfig, simulate_one_realization
 
 cfg = TunnelConfig(
     length_m=1500,
@@ -37,7 +37,6 @@ df = simulate_one_realization(
     seed=42,
 )
 
-# Key indicators
 annual_energy_mwh = df["energy_kwh"].sum() / 1000
 peak_power_kw = df["power_kw"].max()
 mean_power_kw = df["power_kw"].mean()
