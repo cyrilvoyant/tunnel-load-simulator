@@ -4,7 +4,7 @@ import time
 import numpy as np
 import pandas as pd
 
-from simulator import (
+from tunnel_load_simulator.simulator import (
     LIGHTING_PARAMS,
     TunnelConfig,
     run_monte_carlo,
