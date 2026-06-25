@@ -23,7 +23,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from simulator import (
+from tunnel_load_simulator.simulator import (
     CONTEXT_MULT,
     LIGHTING_PARAMS,
     VENTILATION_PARAMS,
@@ -478,6 +478,6 @@ st.markdown(
         </a> • 
         Collaboration Mines Paris-PSL & Université Sidi Mohamed Ben Abdellah
     </div>
-    """, 
+    """,
     unsafe_allow_html=True
 )

@@ -12,7 +12,7 @@ A vectorized **Monte Carlo** generator of synthetic electrical load profiles for
 This software is part of the **SmartTunnel** research project, a scientific collaboration between:
 
 | Author | Affiliation |
-|---|---|
+|--------|-------------|
 | **Haytham El-Houari**, PhD | Université Sidi Mohamed Ben Abdellah (USMBA), Fès, Morocco |
 | **Cyril Voyant**, Professor | Mines Paris – PSL, OIE Laboratory (Centre Observation, Impacts, Énergie), France |
 
@@ -29,22 +29,37 @@ If you use this software in academic work, please cite it (see *Citation* sectio
 - **Plotly visualizations** with controlled hourly downsampling for browser performance — no more locked-up tabs.
 - **Streamlit `cache_data`** on the simulator so slider changes are responsive.
 - **Bugs fixed** (see *Bug fixes* section below).
-- **Code split** into a pure simulation module (`simulator.py`) and a slim UI layer (`app.py`), so the engine is testable and reusable.
+- **Code split** into a pure simulation module (`src/tunnel_load_simulator/simulator.py`) and a slim UI layer (`app.py`), so the engine is testable and reusable.
 
 ---
 
 ## Repository layout
 
-```
+```text
 .
-├── app.py            # Streamlit UI (imports the engine)
-├── simulator.py      # Pure NumPy/pandas simulation engine
-├── test_engine.py    # Standalone validation tests (no Streamlit)
+├── app.py                  # Streamlit UI (imports the engine)
 ├── requirements.txt
 ├── README.md
-├── CITATION.cff      # Machine-readable citation metadata
-└── LICENSE
+├── CITATION.cff            # Machine-readable citation metadata
+├── LICENSE
+│
+├── examples/
+│   ├── basic_example.py          # Single realization, print KPIs
+│   └── monte_carlo_example.py    # Monte Carlo run, KPI distributions
+│
+├── tests/
+│   ├── README.md
+│   └── test_engine.py      # Standalone validation tests (no Streamlit)
+│
+└── src/
+    └── tunnel_load_simulator/
+        ├── __init__.py
+        └── simulator.py
 ```
+
+- `examples/` — minimal standalone scripts to get started without the Streamlit UI.
+- `tests/` — validation and reproducibility tests (no Streamlit required).
+- `src/` — reusable simulation package, importable independently of the app.
 
 ---
 
@@ -67,7 +82,7 @@ Push the repository to GitHub and point Streamlit Cloud at `app.py`. The `requir
 
 ```python
 import pandas as pd
-from simulator import TunnelConfig, run_monte_carlo
+from tunnel_load_simulator.simulator import TunnelConfig, run_monte_carlo
 
 cfg = TunnelConfig(
     length_m=1500, n_tubes=2, n_lanes_per_tube=2,
@@ -89,6 +104,28 @@ results = run_monte_carlo(
 )
 print(results["kpis"].describe())
 ```
+
+---
+
+## Examples
+
+### Basic simulation
+
+```bash
+python examples/basic_example.py
+```
+
+Runs a single realization for a default tunnel configuration and prints key indicators (annual energy, peak power, load factor).
+
+### Monte Carlo simulation
+
+```bash
+python examples/monte_carlo_example.py
+```
+
+Runs a full Monte Carlo experiment (20 independent realizations) and summarises the distributions of annual energy and peak power (median, P10, P90).
+
+These scripts are self-contained and require only the `src/tunnel_load_simulator` package and the packages listed in `requirements.txt`. They provide a quick starting point for users who want to use the simulation engine programmatically, without the Streamlit interface.
 
 ---
 
@@ -165,9 +202,9 @@ where $T_{\text{raw}}(t)$ is the sum of a night floor and morning/evening Gaussi
 
 For each calendar day $d$, two independent Bernoulli draws decide whether a pollution episode and/or an accident occur. If an event occurs, its start time and duration are drawn uniformly:
 
-| Event type | start hour    | duration |
-|-----------:|--------------:|---------:|
-| pollution  | $\mathcal{U}(7, 18)$ | $\mathcal{U}(2, 8)$  |
+| Event type | start hour | duration |
+|-----------:|-----------:|---------:|
+| pollution  | $\mathcal{U}(7, 18)$ | $\mathcal{U}(2, 8)$ |
 | accident   | $\mathcal{U}(6.5, 20)$ | $\mathcal{U}(0.5, 3)$ |
 
 Events that extend past 24:00 correctly spill into the next calendar day.
