@@ -11,9 +11,40 @@
   "programmingLanguage": "Python",
   "developmentStatus": "active",
   "applicationCategory": "Energy demand modeling",
-  "keywords": ["SmartTunnel", "road tunnel", "electrical load simulation", "Monte Carlo", "synthetic time series", "tunnel ventilation", "tunnel lighting", "energy demand modeling"],
+  "keywords": [
+    "SmartTunnel",
+    "road tunnel",
+    "electrical load simulation",
+    "Monte Carlo",
+    "synthetic time series",
+    "tunnel ventilation",
+    "tunnel lighting",
+    "energy demand modeling"
+  ],
   "author": [
-    {"@type": "Person", "givenName": "Haytham", "familyName": "El-Houari", "affiliation": {"@type": "Organization", "name": "Universite Sidi Mohamed Ben Abdellah (USMBA), Fes, Morocco"}},
-    {"@type": "Person", "givenName": "Cyril", "familyName": "Voyant", "@id": "https://orcid.org/0000-0003-0242-7377", "url": "https://person.cyrilvoyant.com", "affiliation": {"@type": "Organization", "name": "Mines Paris - PSL, Centre Observation, Impacts, Energie (O.I.E.), Sophia Antipolis, France"}}
+    {
+      "@type": "Person",
+      "givenName": "Haytham",
+      "familyName": "El-Houari",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Universite Sidi Mohamed Ben Abdellah (USMBA), Fes, Morocco",
+        "@id": "https://ror.org/04efg9a07",
+        "identifier": "https://ror.org/04efg9a07"
+      }
+    },
+    {
+      "@type": "Person",
+      "givenName": "Cyril",
+      "familyName": "Voyant",
+      "@id": "https://orcid.org/0000-0003-0242-7377",
+      "url": "https://person.cyrilvoyant.com",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Mines Paris - PSL, Centre Observation, Impacts, Energie (O.I.E.), Sophia Antipolis, France",
+        "@id": "https://ror.org/04y8cs423",
+        "identifier": "https://ror.org/04y8cs423"
+      }
+    }
   ]
 }
