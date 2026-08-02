@@ -1,0 +1,19 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Tunnel Load Simulator - SmartTunnel project",
+  "description": "A vectorized Monte Carlo generator of synthetic electrical load profiles for road tunnels. The tool models lighting, ventilation and auxiliary power demand as a function of tunnel geometry, traffic patterns, and stochastic disturbances such as pollution episodes and accidents. Developed as part of the SmartTunnel research project.",
+  "version": "1.0.1",
+  "dateModified": "2026-05-08",
+  "license": "https://spdx.org/licenses/MIT",
+  "codeRepository": "https://github.com/cyrilvoyant/tunnel-load-simulator",
+  "identifier": "https://doi.org/10.5281/zenodo.20080043",
+  "programmingLanguage": "Python",
+  "developmentStatus": "active",
+  "applicationCategory": "Energy demand modeling",
+  "keywords": ["SmartTunnel", "road tunnel", "electrical load simulation", "Monte Carlo", "synthetic time series", "tunnel ventilation", "tunnel lighting", "energy demand modeling"],
+  "author": [
+    {"@type": "Person", "givenName": "Haytham", "familyName": "El-Houari", "affiliation": {"@type": "Organization", "name": "Universite Sidi Mohamed Ben Abdellah (USMBA), Fes, Morocco"}},
+    {"@type": "Person", "givenName": "Cyril", "familyName": "Voyant", "@id": "https://orcid.org/0000-0003-0242-7377", "url": "https://person.cyrilvoyant.com", "affiliation": {"@type": "Organization", "name": "Mines Paris - PSL, Centre Observation, Impacts, Energie (O.I.E.), Sophia Antipolis, France"}}
+  ]
+}
