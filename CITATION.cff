@@ -38,3 +38,8 @@ keywords:
   - tunnel ventilation
   - tunnel lighting
   - energy demand modeling
+
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20080043"
+    description: "Concept DOI (all versions, Zenodo)"
