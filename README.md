@@ -1,6 +1,7 @@
 # Tunnel Load Simulator
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20080043.svg)](https://doi.org/10.5281/zenodo.20080043)
+[![SWH](https://archive.softwareheritage.org/badge/swh:1:dir:f617bac9984dd23a718079f3f61bc710b0e1c3e3/)](https://archive.softwareheritage.org/swh:1:dir:f617bac9984dd23a718079f3f61bc710b0e1c3e3;origin=https://github.com/cyrilvoyant/tunnel-load-simulator;visit=swh:1:snp:8055979679a6e61e980002ad042ece760a38d716;anchor=swh:1:rev:748e053e129669cf3e896d381e3c0ac01c763edd;path=/)
 
 A vectorized **Monte Carlo** generator of synthetic electrical load profiles for road tunnels. Streamlit application that produces realistic time series of total electrical power and energy demand based on tunnel geometry, operating context, traffic patterns, and stochastic disturbances (pollution episodes, accidents, sensor noise).
 
