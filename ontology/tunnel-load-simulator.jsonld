@@ -1,0 +1,397 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "wsem": "https://w3id.org/websemantic/ns#"
+  },
+  "@type": "SoftwareSourceCode",
+  "@id": "https://doi.org/10.5281/zenodo.20080042",
+  "name": "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)",
+  "description": "Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations.",
+  "codeRepository": "https://github.com/cyrilvoyant/tunnel-load-simulator",
+  "license": "MIT",
+  "programmingLanguage": "Python",
+  "keywords": [
+    "road tunnel",
+    "electricity demand",
+    "Monte Carlo",
+    "synthetic load profile",
+    "SmartTunnel"
+  ],
+  "dateModified": "2026-10-23",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Haytham El-Houari"
+    },
+    {
+      "@type": "Person",
+      "name": "Cyril Voyant",
+      "@id": "https://orcid.org/0000-0003-0242-7377"
+    }
+  ],
+  "citation": {
+    "@type": "ScholarlyArticle",
+    "@id": "https://doi.org/10.1016/j.softx.2026.102946",
+    "name": "H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946"
+  },
+  "wsem:declaresParameter": [
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "length_m",
+      "description": "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur.",
+      "valueRequired": true,
+      "unitText": "m",
+      "unitCode": "http://qudt.org/vocab/unit/M",
+      "defaultValue": "1500"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "n_tubes",
+      "description": "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies.",
+      "valueRequired": true,
+      "unitText": "count",
+      "unitCode": "http://qudt.org/vocab/unit/NUM",
+      "defaultValue": "2"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "n_lanes_per_tube",
+      "description": "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube.",
+      "valueRequired": true,
+      "unitText": "count",
+      "unitCode": "http://qudt.org/vocab/unit/NUM",
+      "defaultValue": "2"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "altitude_m",
+      "description": "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000.",
+      "valueRequired": true,
+      "unitText": "m",
+      "unitCode": "http://qudt.org/vocab/unit/M",
+      "defaultValue": "300"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "max_depth_m",
+      "description": "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000.",
+      "valueRequired": true,
+      "unitText": "m",
+      "unitCode": "http://qudt.org/vocab/unit/M",
+      "defaultValue": "80"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "gradient_percent",
+      "description": "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20.",
+      "valueRequired": true,
+      "unitText": "%",
+      "unitCode": "http://qudt.org/vocab/unit/PERCENT",
+      "defaultValue": "2.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "tunnel_context",
+      "description": "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée.",
+      "valueRequired": true,
+      "defaultValue": "peri-urban"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "lighting_type",
+      "description": "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage.",
+      "valueRequired": true,
+      "defaultValue": "LED adaptive"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "ventilation_type",
+      "description": "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements.",
+      "valueRequired": true,
+      "defaultValue": "longitudinal"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "aux_kw_per_km_tube",
+      "description": "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur.",
+      "valueRequired": true,
+      "defaultValue": "35.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "base_fixed_kw",
+      "description": "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW",
+      "defaultValue": "40.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "traffic_level",
+      "description": "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "1.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "morning_peak_hour",
+      "description": "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu.",
+      "valueRequired": true,
+      "unitText": "h",
+      "unitCode": "http://qudt.org/vocab/unit/HR",
+      "defaultValue": "8.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "evening_peak_hour",
+      "description": "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu.",
+      "valueRequired": true,
+      "unitText": "h",
+      "unitCode": "http://qudt.org/vocab/unit/HR",
+      "defaultValue": "18.0"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "peak_width_h",
+      "description": "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir.",
+      "valueRequired": true,
+      "unitText": "h",
+      "unitCode": "http://qudt.org/vocab/unit/HR",
+      "defaultValue": "1.4"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "traffic_sensitivity",
+      "description": "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.65"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "noise_sigma",
+      "description": "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.06"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "pollution_probability_per_day",
+      "description": "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.05"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "accident_probability_per_day",
+      "description": "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.015"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "pollution_sensitivity",
+      "description": "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.55"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "accident_sensitivity",
+      "description": "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
+      "defaultValue": "0.75"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "start_date",
+      "description": "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle.",
+      "valueRequired": true,
+      "defaultValue": "2025-01-01"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "n_days",
+      "description": "Nombre de jours entiers simulés à partir de start_date.",
+      "valueRequired": true,
+      "unitText": "d",
+      "unitCode": "http://qudt.org/vocab/unit/DAY",
+      "defaultValue": "7"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "freq_minutes",
+      "description": "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60.",
+      "valueRequired": true,
+      "unitText": "min",
+      "unitCode": "http://qudt.org/vocab/unit/MIN",
+      "defaultValue": "60"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "n_runs",
+      "description": "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice.",
+      "valueRequired": true,
+      "unitText": "count",
+      "unitCode": "http://qudt.org/vocab/unit/NUM",
+      "defaultValue": "3"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "base_seed",
+      "description": "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run.",
+      "valueRequired": true,
+      "defaultValue": "42"
+    }
+  ],
+  "wsem:declaresOutput": [
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.lighting_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.ventilation_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.auxiliary_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.power_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.energy_kwh",
+      "description": "energy: Énergie du pas : power_kw × freq_minutes / 60.",
+      "valueRequired": true
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.traffic_index",
+      "description": "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.pollution_event",
+      "description": "event_flag: Indicateur binaire d'événement de pollution simulé.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "representative.accident_event",
+      "description": "event_flag: Indicateur binaire d'accident simulé.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.total_mwh",
+      "description": "energy: Énergie de toute la période : somme des energy_kwh / 1000.",
+      "valueRequired": true
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.annualized_mwh",
+      "description": "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée.",
+      "valueRequired": true
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.peak_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.mean_kw",
+      "description": "power: Puissance électrique calculée.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.load_factor",
+      "description": "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.specific_kwh_m_year",
+      "description": "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube.",
+      "valueRequired": true
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.n_pollution_events",
+      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "kpis.n_accident_events",
+      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté.",
+      "valueRequired": true,
+      "unitText": "1",
+      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "daily.energy_kwh",
+      "description": "energy: Somme des énergies des pas natifs de la journée, réalisation 0.",
+      "valueRequired": true
+    },
+    {
+      "@type": "PropertyValueSpecification",
+      "name": "daily.mean_kw",
+      "description": "power: Moyenne des puissances des pas natifs de la journée, réalisation 0.",
+      "valueRequired": true,
+      "unitText": "kW",
+      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+    }
+  ]
+}

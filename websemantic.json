@@ -1,0 +1,511 @@
+{
+  "descriptor": "websemantic-lite/0.1",
+  "generated": "2026-10-23",
+  "vocabulary": "https://w3id.org/websemantic/ns#",
+  "software": {
+    "name": "tunnel-load-simulator",
+    "title": "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)",
+    "repository": "https://github.com/cyrilvoyant/tunnel-load-simulator",
+    "conceptDOI": "https://doi.org/10.5281/zenodo.20080042",
+    "license": "MIT",
+    "programmingLanguage": "Python",
+    "authors": [
+      {
+        "name": "Haytham El-Houari"
+      },
+      {
+        "name": "Cyril Voyant",
+        "orcid": "https://orcid.org/0000-0003-0242-7377"
+      }
+    ]
+  },
+  "article": {
+    "citation": "H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946",
+    "doi": "https://doi.org/10.1016/j.softx.2026.102946",
+    "status": "published"
+  },
+  "tasks": {
+    "supported": [
+      "estimate the demand (energy, peak, load factor) of a tunnel under stated assumptions",
+      "compare lighting, ventilation and traffic configurations with controlled seeds"
+    ],
+    "out_of_scope": [
+      "certification",
+      "prediction of a specific real tunnel without calibration"
+    ]
+  },
+  "inputs": [
+    {
+      "field": "length_m",
+      "type": "float",
+      "required": true,
+      "definition": "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur.",
+      "unit": "unit:M",
+      "unit_symbol": "m",
+      "unit_iri": "http://qudt.org/vocab/unit/M",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Length",
+      "bounds": "min_exclusive 0",
+      "default_proposal": "1500",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "n_tubes",
+      "type": "int",
+      "required": true,
+      "definition": "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies.",
+      "unit": "unit:NUM",
+      "unit_symbol": "count",
+      "unit_iri": "http://qudt.org/vocab/unit/NUM",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Count",
+      "bounds": "min 1, max 8",
+      "default_proposal": "2",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "n_lanes_per_tube",
+      "type": "int",
+      "required": true,
+      "definition": "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube.",
+      "unit": "unit:NUM",
+      "unit_symbol": "count",
+      "unit_iri": "http://qudt.org/vocab/unit/NUM",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Count",
+      "bounds": "min 1, max 6",
+      "default_proposal": "2",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "altitude_m",
+      "type": "float",
+      "required": true,
+      "definition": "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000.",
+      "unit": "unit:M",
+      "unit_symbol": "m",
+      "unit_iri": "http://qudt.org/vocab/unit/M",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Length",
+      "default_proposal": "300",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "max_depth_m",
+      "type": "float",
+      "required": true,
+      "definition": "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000.",
+      "unit": "unit:M",
+      "unit_symbol": "m",
+      "unit_iri": "http://qudt.org/vocab/unit/M",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Length",
+      "default_proposal": "80",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "gradient_percent",
+      "type": "float",
+      "required": true,
+      "definition": "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20.",
+      "unit": "unit:PERCENT",
+      "unit_symbol": "%",
+      "unit_iri": "http://qudt.org/vocab/unit/PERCENT",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/DimensionlessRatio",
+      "default_proposal": "2.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "tunnel_context",
+      "type": "category",
+      "required": true,
+      "definition": "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée.",
+      "default_proposal": "peri-urban",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "lighting_type",
+      "type": "category",
+      "required": true,
+      "definition": "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage.",
+      "default_proposal": "LED adaptive",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "ventilation_type",
+      "type": "category",
+      "required": true,
+      "definition": "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements.",
+      "default_proposal": "longitudinal",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "aux_kw_per_km_tube",
+      "type": "float",
+      "required": true,
+      "definition": "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur.",
+      "default_proposal": "35.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "base_fixed_kw",
+      "type": "float",
+      "required": true,
+      "definition": "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power",
+      "default_proposal": "40.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "traffic_level",
+      "type": "float",
+      "required": true,
+      "definition": "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "default_proposal": "1.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "morning_peak_hour",
+      "type": "float",
+      "required": true,
+      "definition": "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu.",
+      "unit": "unit:HR",
+      "unit_symbol": "h",
+      "unit_iri": "http://qudt.org/vocab/unit/HR",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Time",
+      "default_proposal": "8.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "evening_peak_hour",
+      "type": "float",
+      "required": true,
+      "definition": "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu.",
+      "unit": "unit:HR",
+      "unit_symbol": "h",
+      "unit_iri": "http://qudt.org/vocab/unit/HR",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Time",
+      "default_proposal": "18.0",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "peak_width_h",
+      "type": "float",
+      "required": true,
+      "definition": "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir.",
+      "unit": "unit:HR",
+      "unit_symbol": "h",
+      "unit_iri": "http://qudt.org/vocab/unit/HR",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Time",
+      "default_proposal": "1.4",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "traffic_sensitivity",
+      "type": "float",
+      "required": true,
+      "definition": "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "default_proposal": "0.65",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "noise_sigma",
+      "type": "float",
+      "required": true,
+      "definition": "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "bounds": "min 0",
+      "default_proposal": "0.06",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "pollution_probability_per_day",
+      "type": "float",
+      "required": true,
+      "definition": "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "bounds": "min 0, max 1",
+      "default_proposal": "0.05",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "accident_probability_per_day",
+      "type": "float",
+      "required": true,
+      "definition": "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "bounds": "min 0, max 1",
+      "default_proposal": "0.015",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "pollution_sensitivity",
+      "type": "float",
+      "required": true,
+      "definition": "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "default_proposal": "0.55",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "accident_sensitivity",
+      "type": "float",
+      "required": true,
+      "definition": "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless",
+      "default_proposal": "0.75",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "start_date",
+      "type": "date",
+      "required": true,
+      "definition": "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle.",
+      "default_proposal": "2025-01-01",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "n_days",
+      "type": "int",
+      "required": true,
+      "definition": "Nombre de jours entiers simulés à partir de start_date.",
+      "unit": "unit:DAY",
+      "unit_symbol": "d",
+      "unit_iri": "http://qudt.org/vocab/unit/DAY",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Time",
+      "bounds": "min 1",
+      "default_proposal": "7",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "freq_minutes",
+      "type": "int",
+      "required": true,
+      "definition": "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60.",
+      "unit": "unit:MIN",
+      "unit_symbol": "min",
+      "unit_iri": "http://qudt.org/vocab/unit/MIN",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Time",
+      "bounds": "min 1",
+      "default_proposal": "60",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "n_runs",
+      "type": "int",
+      "required": true,
+      "definition": "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice.",
+      "unit": "unit:NUM",
+      "unit_symbol": "count",
+      "unit_iri": "http://qudt.org/vocab/unit/NUM",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Count",
+      "bounds": "min 1",
+      "default_proposal": "3",
+      "default_requires_acceptance": true
+    },
+    {
+      "field": "base_seed",
+      "type": "int",
+      "required": true,
+      "definition": "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run.",
+      "bounds": "min 0",
+      "default_proposal": "42",
+      "default_requires_acceptance": true
+    }
+  ],
+  "outputs": [
+    {
+      "field": "representative.lighting_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "representative.ventilation_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "representative.auxiliary_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "representative.power_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "representative.energy_kwh",
+      "type": "float",
+      "required": true,
+      "definition": "energy: Énergie du pas : power_kw × freq_minutes / 60."
+    },
+    {
+      "field": "representative.traffic_index",
+      "type": "float",
+      "required": true,
+      "definition": "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "representative.pollution_event",
+      "type": "float",
+      "required": true,
+      "definition": "event_flag: Indicateur binaire d'événement de pollution simulé.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "representative.accident_event",
+      "type": "float",
+      "required": true,
+      "definition": "event_flag: Indicateur binaire d'accident simulé.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "kpis.total_mwh",
+      "type": "float",
+      "required": true,
+      "definition": "energy: Énergie de toute la période : somme des energy_kwh / 1000."
+    },
+    {
+      "field": "kpis.annualized_mwh",
+      "type": "float",
+      "required": true,
+      "definition": "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée."
+    },
+    {
+      "field": "kpis.peak_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "kpis.mean_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Puissance électrique calculée.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    },
+    {
+      "field": "kpis.load_factor",
+      "type": "float",
+      "required": true,
+      "definition": "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "kpis.specific_kwh_m_year",
+      "type": "float",
+      "required": true,
+      "definition": "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube."
+    },
+    {
+      "field": "kpis.n_pollution_events",
+      "type": "float",
+      "required": true,
+      "definition": "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "kpis.n_accident_events",
+      "type": "float",
+      "required": true,
+      "definition": "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté.",
+      "unit": "unit:UNITLESS",
+      "unit_symbol": "1",
+      "unit_iri": "http://qudt.org/vocab/unit/UNITLESS",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Dimensionless"
+    },
+    {
+      "field": "daily.energy_kwh",
+      "type": "float",
+      "required": true,
+      "definition": "energy: Somme des énergies des pas natifs de la journée, réalisation 0."
+    },
+    {
+      "field": "daily.mean_kw",
+      "type": "float",
+      "required": true,
+      "definition": "power: Moyenne des puissances des pas natifs de la journée, réalisation 0.",
+      "unit": "unit:KiloW",
+      "unit_symbol": "kW",
+      "unit_iri": "http://qudt.org/vocab/unit/KiloW",
+      "quantity_kind_iri": "http://qudt.org/vocab/quantitykind/Power"
+    }
+  ],
+  "rules": [
+    "Never invent a value. Each input is given by the user, an exact unit conversion of a given value, or a documented default that the user explicitly accepts.",
+    "Use the canonical unit of each field; convert exactly and say so (for example 2 km -> 2000 m). Never mix a percentage and a fraction.",
+    "Ask when a request is ambiguous or a required input is missing; do not infer a number from a place name or a qualitative word.",
+    "Run the code unmodified. Report only what was actually computed, with quantity, unit and the input values used; never present a planned or unavailable run as a result.",
+    "State the scope and the limits below when you report a result.",
+    "Defaults and qualitative conventions (for example « tunnel long ») are proposals: ask the user to accept them (WebSemantic contract of TLS)."
+  ],
+  "limits": [
+    "First-order generator to calibrate on measurements before engineering use; not a certification or a prediction of a real tunnel's consumption."
+  ],
+  "full_contract": "https://github.com/cyrilvoyant/websemantic (pack tls: LLM-CONTRACT.md, ontology.ttl, shapes.ttl)"
+}
