@@ -7,21 +7,26 @@ Software DOI (all versions): https://doi.org/10.5281/zenodo.20080042 · licence 
 Article: H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946, https://doi.org/10.1016/j.softx.2026.102946 (published).
 
 ## What it does
+
 Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations.
 
 ## Why (from the article)
+
 Tunnel operators rarely have detailed load measurements, especially at design stage; a transparent first-order generator gives orders of magnitude and their variability.
 
 ## Method
+
 - Power = fixed base + auxiliaries (length, tubes, depth factor) + lighting (daylight, traffic, lighting type) + ventilation (traffic, slope, altitude, events), times a multiplicative noise
 - Monte Carlo: each realization uses base_seed + run; outputs are medians and P10–P90 envelopes
 
 ## Entry points
+
 - `from tunnel_load_simulator.simulator import TunnelConfig, simulate_one_realization, run_monte_carlo`: Python API
 - `streamlit run app.py`: web application
 - `examples/basic_example.py, examples/monte_carlo_example.py`: examples
 
 ## Inputs
+
 | Field | Unit | Type | Bounds | Required | Default (proposal only) | Meaning |
 |---|---|---|---|---|---|---|
 | `length_m` | m (unit:M) | float | min_exclusive 0 | yes | 1500 | Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur. |
@@ -52,6 +57,7 @@ Tunnel operators rarely have detailed load measurements, especially at design st
 | `base_seed` | as stated | int | min 0 | yes | 42 | Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run. |
 
 ## Outputs
+
 | Output | Unit | Meaning |
 |---|---|---|
 | `representative.lighting_kw` | kW (unit:KiloW) | power: Puissance électrique calculée. |
@@ -74,9 +80,11 @@ Tunnel operators rarely have detailed load measurements, especially at design st
 | `daily.mean_kw` | kW (unit:KiloW) | power: Moyenne des puissances des pas natifs de la journée, réalisation 0. |
 
 ## How to read the results
+
 - Defaults and qualitative conventions (for example « tunnel long ») are proposals: ask the user to accept them (WebSemantic contract of TLS).
 
 ## Rules
+
 1. Never invent a value. Each input is given by the user, an exact unit conversion of a given value, or a documented default that the user explicitly accepts.
 2. Use the canonical unit of each field; convert exactly and say so (for example 2 km -> 2000 m). Never mix a percentage and a fraction.
 3. Ask when a request is ambiguous or a required input is missing; do not infer a number from a place name or a qualitative word.
@@ -84,15 +92,18 @@ Tunnel operators rarely have detailed load measurements, especially at design st
 5. State the scope and the limits below when you report a result.
 
 ## Scope
+
 Supported: estimate the demand (energy, peak, load factor) of a tunnel under stated assumptions; compare lighting, ventilation and traffic configurations with controlled seeds.
 Out of scope (refuse or redirect): certification; prediction of a specific real tunnel without calibration.
 
 ## Limits
+
 - First-order generator to calibrate on measurements before engineering use; not a certification or a prediction of a real tunnel's consumption.
 
 A full WebSemantic contract (qualitative conventions, SHACL shapes) exists for this software: https://github.com/cyrilvoyant/websemantic (pack tls: LLM-CONTRACT.md, ontology.ttl, shapes.ttl).
 
 ## Cite
+
 Software: Haytham El-Houari, Cyril Voyant. Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit). Zenodo. https://doi.org/10.5281/zenodo.20080042
 Article: H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946. https://doi.org/10.1016/j.softx.2026.102946
 
