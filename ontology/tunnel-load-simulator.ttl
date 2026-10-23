@@ -1,311 +1,638 @@
-@prefix wsem: <https://w3id.org/websemantic/ns#> .
+# tunnel-load-simulator: WebSemantic, QUDT and schema.org description (generated 2026-10-23; documentation only).
+# The JSON-LD file in this folder is the same graph.
+@prefix : <https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qk: <http://qudt.org/vocab/quantitykind/> .
 @prefix schema: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix unit: <http://qudt.org/vocab/unit/> .
-@prefix qk: <http://qudt.org/vocab/quantitykind/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix : <https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#> .
+@prefix wsem: <https://w3id.org/websemantic/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# Instances of the WebSemantic core vocabulary for tunnel-load-simulator (generated 2026-10-23; documentation only).
-
-:software a wsem:Software, schema:SoftwareSourceCode ;
-    schema:name "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)" ;
-    schema:codeRepository <https://github.com/cyrilvoyant/tunnel-load-simulator> ;
-    wsem:conceptDOI "https://doi.org/10.5281/zenodo.20080042" ;
-    schema:identifier <https://doi.org/10.5281/zenodo.20080042> ;
-    schema:license "MIT" ;
-    schema:programmingLanguage "Python" ;
-    schema:description "Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations." ;
-    schema:author [ a schema:Person ; schema:name "Haytham El-Houari" ] ;
-    schema:author <https://orcid.org/0000-0003-0242-7377> ;
+:software a schema:SoftwareSourceCode,
+        wsem:Software ;
+    dcterms:modified "2026-10-23" ;
+    owl:sameAs <https://doi.org/10.5281/zenodo.20080042> ;
+    schema:author [ a schema:Person ;
+            schema:name "Haytham El-Houari" ],
+        <https://orcid.org/0000-0003-0242-7377> ;
     schema:citation <https://doi.org/10.1016/j.softx.2026.102946> ;
-    wsem:declaresParameter :in0 ;
-    wsem:declaresParameter :in1 ;
-    wsem:declaresParameter :in2 ;
-    wsem:declaresParameter :in3 ;
-    wsem:declaresParameter :in4 ;
-    wsem:declaresParameter :in5 ;
-    wsem:declaresParameter :in6 ;
-    wsem:declaresParameter :in7 ;
-    wsem:declaresParameter :in8 ;
-    wsem:declaresParameter :in9 ;
-    wsem:declaresParameter :in10 ;
-    wsem:declaresParameter :in11 ;
-    wsem:declaresParameter :in12 ;
-    wsem:declaresParameter :in13 ;
-    wsem:declaresParameter :in14 ;
-    wsem:declaresParameter :in15 ;
-    wsem:declaresParameter :in16 ;
-    wsem:declaresParameter :in17 ;
-    wsem:declaresParameter :in18 ;
-    wsem:declaresParameter :in19 ;
-    wsem:declaresParameter :in20 ;
-    wsem:declaresParameter :in21 ;
-    wsem:declaresParameter :in22 ;
-    wsem:declaresParameter :in23 ;
-    wsem:declaresParameter :in24 ;
-    wsem:declaresParameter :in25 ;
-    wsem:declaresOutput :out0 ;
-    wsem:declaresOutput :out1 ;
-    wsem:declaresOutput :out2 ;
-    wsem:declaresOutput :out3 ;
-    wsem:declaresOutput :out4 ;
-    wsem:declaresOutput :out5 ;
-    wsem:declaresOutput :out6 ;
-    wsem:declaresOutput :out7 ;
-    wsem:declaresOutput :out8 ;
-    wsem:declaresOutput :out9 ;
-    wsem:declaresOutput :out10 ;
-    wsem:declaresOutput :out11 ;
-    wsem:declaresOutput :out12 ;
-    wsem:declaresOutput :out13 ;
-    wsem:declaresOutput :out14 ;
-    wsem:declaresOutput :out15 ;
-    wsem:declaresOutput :out16 ;
-    wsem:declaresOutput :out17 ;
-    dcterms:modified "2026-10-23" .
+    schema:codeRepository <https://github.com/cyrilvoyant/tunnel-load-simulator> ;
+    schema:dateModified "2026-10-23"^^xsd:date ;
+    schema:description "Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations." ;
+    schema:identifier <https://doi.org/10.5281/zenodo.20080042> ;
+    schema:keywords "Monte Carlo",
+        "SmartTunnel",
+        "electricity demand",
+        "road tunnel",
+        "synthetic load profile" ;
+    schema:license "MIT" ;
+    schema:name "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)" ;
+    schema:programmingLanguage "Python" ;
+    wsem:conceptDOI "https://doi.org/10.5281/zenodo.20080042" ;
+    wsem:declaresOutput :out0,
+        :out1,
+        :out10,
+        :out11,
+        :out12,
+        :out13,
+        :out14,
+        :out15,
+        :out16,
+        :out17,
+        :out2,
+        :out3,
+        :out4,
+        :out5,
+        :out6,
+        :out7,
+        :out8,
+        :out9 ;
+    wsem:declaresParameter :in0,
+        :in1,
+        :in10,
+        :in11,
+        :in12,
+        :in13,
+        :in14,
+        :in15,
+        :in16,
+        :in17,
+        :in18,
+        :in19,
+        :in2,
+        :in20,
+        :in21,
+        :in22,
+        :in23,
+        :in24,
+        :in25,
+        :in3,
+        :in4,
+        :in5,
+        :in6,
+        :in7,
+        :in8,
+        :in9 .
 
-<https://orcid.org/0000-0003-0242-7377> a schema:Person ; schema:name "Cyril Voyant" .
-:in0 a wsem:ParameterDefinition ;
-    skos:prefLabel "length_m" ;
-    wsem:apiVariable "length_m" ;
+:in0 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur." ;
+    skos:prefLabel "length_m" ;
+    schema:defaultValue "1500" ;
+    schema:description "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur." ;
+    schema:name "length_m" ;
+    schema:unitCode unit:M ;
+    schema:unitText "m" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "length_m" ;
     wsem:canonicalUnit unit:M ;
     wsem:quantityKind qk:Length .
-:in1 a wsem:ParameterDefinition ;
-    skos:prefLabel "n_tubes" ;
-    wsem:apiVariable "n_tubes" ;
+
+:in1 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies." ;
+    skos:prefLabel "n_tubes" ;
+    schema:defaultValue "2" ;
+    schema:description "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies." ;
+    schema:name "n_tubes" ;
+    schema:unitCode unit:NUM ;
+    schema:unitText "count" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "n_tubes" ;
     wsem:canonicalUnit unit:NUM ;
     wsem:quantityKind qk:Count .
-:in2 a wsem:ParameterDefinition ;
-    skos:prefLabel "n_lanes_per_tube" ;
-    wsem:apiVariable "n_lanes_per_tube" ;
-    skos:definition "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube." ;
-    wsem:canonicalUnit unit:NUM ;
-    wsem:quantityKind qk:Count .
-:in3 a wsem:ParameterDefinition ;
-    skos:prefLabel "altitude_m" ;
-    wsem:apiVariable "altitude_m" ;
-    skos:definition "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000." ;
-    wsem:canonicalUnit unit:M ;
-    wsem:quantityKind qk:Length .
-:in4 a wsem:ParameterDefinition ;
-    skos:prefLabel "max_depth_m" ;
-    wsem:apiVariable "max_depth_m" ;
-    skos:definition "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000." ;
-    wsem:canonicalUnit unit:M ;
-    wsem:quantityKind qk:Length .
-:in5 a wsem:ParameterDefinition ;
-    skos:prefLabel "gradient_percent" ;
-    wsem:apiVariable "gradient_percent" ;
-    skos:definition "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20." ;
-    wsem:canonicalUnit unit:PERCENT ;
-    wsem:quantityKind qk:DimensionlessRatio .
-:in6 a wsem:ParameterDefinition ;
-    skos:prefLabel "tunnel_context" ;
-    wsem:apiVariable "tunnel_context" ;
-    skos:definition "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée." .
-:in7 a wsem:ParameterDefinition ;
-    skos:prefLabel "lighting_type" ;
-    wsem:apiVariable "lighting_type" ;
-    skos:definition "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage." .
-:in8 a wsem:ParameterDefinition ;
-    skos:prefLabel "ventilation_type" ;
-    wsem:apiVariable "ventilation_type" ;
-    skos:definition "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements." .
-:in9 a wsem:ParameterDefinition ;
-    skos:prefLabel "aux_kw_per_km_tube" ;
-    wsem:apiVariable "aux_kw_per_km_tube" ;
-    skos:definition "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur." .
-:in10 a wsem:ParameterDefinition ;
-    skos:prefLabel "base_fixed_kw" ;
-    wsem:apiVariable "base_fixed_kw" ;
+
+:in10 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global." ;
+    skos:prefLabel "base_fixed_kw" ;
+    schema:defaultValue "40.0" ;
+    schema:description "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global." ;
+    schema:name "base_fixed_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "base_fixed_kw" ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
-:in11 a wsem:ParameterDefinition ;
-    skos:prefLabel "traffic_level" ;
-    wsem:apiVariable "traffic_level" ;
+
+:in11 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS." ;
+    skos:prefLabel "traffic_level" ;
+    schema:defaultValue "1.0" ;
+    schema:description "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS." ;
+    schema:name "traffic_level" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "traffic_level" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in12 a wsem:ParameterDefinition ;
-    skos:prefLabel "morning_peak_hour" ;
-    wsem:apiVariable "morning_peak_hour" ;
+
+:in12 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu." ;
+    skos:prefLabel "morning_peak_hour" ;
+    schema:defaultValue "8.0" ;
+    schema:description "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu." ;
+    schema:name "morning_peak_hour" ;
+    schema:unitCode unit:HR ;
+    schema:unitText "h" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "morning_peak_hour" ;
     wsem:canonicalUnit unit:HR ;
     wsem:quantityKind qk:Time .
-:in13 a wsem:ParameterDefinition ;
-    skos:prefLabel "evening_peak_hour" ;
-    wsem:apiVariable "evening_peak_hour" ;
+
+:in13 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu." ;
+    skos:prefLabel "evening_peak_hour" ;
+    schema:defaultValue "18.0" ;
+    schema:description "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu." ;
+    schema:name "evening_peak_hour" ;
+    schema:unitCode unit:HR ;
+    schema:unitText "h" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "evening_peak_hour" ;
     wsem:canonicalUnit unit:HR ;
     wsem:quantityKind qk:Time .
-:in14 a wsem:ParameterDefinition ;
-    skos:prefLabel "peak_width_h" ;
-    wsem:apiVariable "peak_width_h" ;
+
+:in14 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir." ;
+    skos:prefLabel "peak_width_h" ;
+    schema:defaultValue "1.4" ;
+    schema:description "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir." ;
+    schema:name "peak_width_h" ;
+    schema:unitCode unit:HR ;
+    schema:unitText "h" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "peak_width_h" ;
     wsem:canonicalUnit unit:HR ;
     wsem:quantityKind qk:Time .
-:in15 a wsem:ParameterDefinition ;
-    skos:prefLabel "traffic_sensitivity" ;
-    wsem:apiVariable "traffic_sensitivity" ;
+
+:in15 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index." ;
+    skos:prefLabel "traffic_sensitivity" ;
+    schema:defaultValue "0.65" ;
+    schema:description "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index." ;
+    schema:name "traffic_sensitivity" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "traffic_sensitivity" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in16 a wsem:ParameterDefinition ;
-    skos:prefLabel "noise_sigma" ;
-    wsem:apiVariable "noise_sigma" ;
+
+:in16 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro." ;
+    skos:prefLabel "noise_sigma" ;
+    schema:defaultValue "0.06" ;
+    schema:description "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro." ;
+    schema:name "noise_sigma" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "noise_sigma" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in17 a wsem:ParameterDefinition ;
-    skos:prefLabel "pollution_probability_per_day" ;
-    wsem:apiVariable "pollution_probability_per_day" ;
+
+:in17 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée." ;
+    skos:prefLabel "pollution_probability_per_day" ;
+    schema:defaultValue "0.05" ;
+    schema:description "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée." ;
+    schema:name "pollution_probability_per_day" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "pollution_probability_per_day" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in18 a wsem:ParameterDefinition ;
-    skos:prefLabel "accident_probability_per_day" ;
-    wsem:apiVariable "accident_probability_per_day" ;
+
+:in18 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée." ;
+    skos:prefLabel "accident_probability_per_day" ;
+    schema:defaultValue "0.015" ;
+    schema:description "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée." ;
+    schema:name "accident_probability_per_day" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "accident_probability_per_day" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in19 a wsem:ParameterDefinition ;
-    skos:prefLabel "pollution_sensitivity" ;
-    wsem:apiVariable "pollution_sensitivity" ;
+
+:in19 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur." ;
+    skos:prefLabel "pollution_sensitivity" ;
+    schema:defaultValue "0.55" ;
+    schema:description "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur." ;
+    schema:name "pollution_sensitivity" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "pollution_sensitivity" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in20 a wsem:ParameterDefinition ;
-    skos:prefLabel "accident_sensitivity" ;
-    wsem:apiVariable "accident_sensitivity" ;
+
+:in2 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube." ;
+    skos:prefLabel "n_lanes_per_tube" ;
+    schema:defaultValue "2" ;
+    schema:description "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube." ;
+    schema:name "n_lanes_per_tube" ;
+    schema:unitCode unit:NUM ;
+    schema:unitText "count" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "n_lanes_per_tube" ;
+    wsem:canonicalUnit unit:NUM ;
+    wsem:quantityKind qk:Count .
+
+:in20 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur." ;
+    skos:prefLabel "accident_sensitivity" ;
+    schema:defaultValue "0.75" ;
+    schema:description "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur." ;
+    schema:name "accident_sensitivity" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "accident_sensitivity" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:in21 a wsem:ParameterDefinition ;
+
+:in21 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle." ;
     skos:prefLabel "start_date" ;
-    wsem:apiVariable "start_date" ;
-    skos:definition "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle." .
-:in22 a wsem:ParameterDefinition ;
-    skos:prefLabel "n_days" ;
-    wsem:apiVariable "n_days" ;
+    schema:defaultValue "2025-01-01" ;
+    schema:description "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle." ;
+    schema:name "start_date" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "start_date" .
+
+:in22 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Nombre de jours entiers simulés à partir de start_date." ;
+    skos:prefLabel "n_days" ;
+    schema:defaultValue "7" ;
+    schema:description "Nombre de jours entiers simulés à partir de start_date." ;
+    schema:name "n_days" ;
+    schema:unitCode unit:DAY ;
+    schema:unitText "d" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "n_days" ;
     wsem:canonicalUnit unit:DAY ;
     wsem:quantityKind qk:Time .
-:in23 a wsem:ParameterDefinition ;
-    skos:prefLabel "freq_minutes" ;
-    wsem:apiVariable "freq_minutes" ;
+
+:in23 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60." ;
+    skos:prefLabel "freq_minutes" ;
+    schema:defaultValue "60" ;
+    schema:description "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60." ;
+    schema:name "freq_minutes" ;
+    schema:unitCode unit:MIN ;
+    schema:unitText "min" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "freq_minutes" ;
     wsem:canonicalUnit unit:MIN ;
     wsem:quantityKind qk:Time .
-:in24 a wsem:ParameterDefinition ;
-    skos:prefLabel "n_runs" ;
-    wsem:apiVariable "n_runs" ;
+
+:in24 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
     skos:definition "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice." ;
+    skos:prefLabel "n_runs" ;
+    schema:defaultValue "3" ;
+    schema:description "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice." ;
+    schema:name "n_runs" ;
+    schema:unitCode unit:NUM ;
+    schema:unitText "count" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "n_runs" ;
     wsem:canonicalUnit unit:NUM ;
     wsem:quantityKind qk:Count .
-:in25 a wsem:ParameterDefinition ;
+
+:in25 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run." ;
     skos:prefLabel "base_seed" ;
-    wsem:apiVariable "base_seed" ;
-    skos:definition "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run." .
-:out0 a wsem:OutputVariable ;
+    schema:defaultValue "42" ;
+    schema:description "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run." ;
+    schema:name "base_seed" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "base_seed" .
+
+:in3 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000." ;
+    skos:prefLabel "altitude_m" ;
+    schema:defaultValue "300" ;
+    schema:description "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000." ;
+    schema:name "altitude_m" ;
+    schema:unitCode unit:M ;
+    schema:unitText "m" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "altitude_m" ;
+    wsem:canonicalUnit unit:M ;
+    wsem:quantityKind qk:Length .
+
+:in4 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000." ;
+    skos:prefLabel "max_depth_m" ;
+    schema:defaultValue "80" ;
+    schema:description "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000." ;
+    schema:name "max_depth_m" ;
+    schema:unitCode unit:M ;
+    schema:unitText "m" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "max_depth_m" ;
+    wsem:canonicalUnit unit:M ;
+    wsem:quantityKind qk:Length .
+
+:in5 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20." ;
+    skos:prefLabel "gradient_percent" ;
+    schema:defaultValue "2.0" ;
+    schema:description "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20." ;
+    schema:name "gradient_percent" ;
+    schema:unitCode unit:PERCENT ;
+    schema:unitText "%" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "gradient_percent" ;
+    wsem:canonicalUnit unit:PERCENT ;
+    wsem:quantityKind qk:DimensionlessRatio .
+
+:in6 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée." ;
+    skos:prefLabel "tunnel_context" ;
+    schema:defaultValue "peri-urban" ;
+    schema:description "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée." ;
+    schema:name "tunnel_context" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "tunnel_context" .
+
+:in7 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage." ;
+    skos:prefLabel "lighting_type" ;
+    schema:defaultValue "LED adaptive" ;
+    schema:description "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage." ;
+    schema:name "lighting_type" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "lighting_type" .
+
+:in8 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements." ;
+    skos:prefLabel "ventilation_type" ;
+    schema:defaultValue "longitudinal" ;
+    schema:description "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements." ;
+    schema:name "ventilation_type" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "ventilation_type" .
+
+:in9 a schema:PropertyValueSpecification,
+        wsem:ParameterDefinition ;
+    skos:definition "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur." ;
+    skos:prefLabel "aux_kw_per_km_tube" ;
+    schema:defaultValue "35.0" ;
+    schema:description "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur." ;
+    schema:name "aux_kw_per_km_tube" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "aux_kw_per_km_tube" .
+
+:out0 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "power: Puissance électrique calculée." ;
     skos:prefLabel "representative.lighting_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "representative.lighting_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
     wsem:apiVariable "representative.lighting_kw" ;
-    skos:definition "power: Puissance électrique calculée." ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
-:out1 a wsem:OutputVariable ;
+
+:out1 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "power: Puissance électrique calculée." ;
     skos:prefLabel "representative.ventilation_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "representative.ventilation_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
     wsem:apiVariable "representative.ventilation_kw" ;
-    skos:definition "power: Puissance électrique calculée." ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
-:out2 a wsem:OutputVariable ;
-    skos:prefLabel "representative.auxiliary_kw" ;
-    wsem:apiVariable "representative.auxiliary_kw" ;
+
+:out10 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
     skos:definition "power: Puissance électrique calculée." ;
-    wsem:canonicalUnit unit:KiloW ;
-    wsem:quantityKind qk:Power .
-:out3 a wsem:OutputVariable ;
-    skos:prefLabel "representative.power_kw" ;
-    wsem:apiVariable "representative.power_kw" ;
-    skos:definition "power: Puissance électrique calculée." ;
-    wsem:canonicalUnit unit:KiloW ;
-    wsem:quantityKind qk:Power .
-:out4 a wsem:OutputVariable ;
-    skos:prefLabel "representative.energy_kwh" ;
-    wsem:apiVariable "representative.energy_kwh" ;
-    skos:definition "energy: Énergie du pas : power_kw × freq_minutes / 60." .
-:out5 a wsem:OutputVariable ;
-    skos:prefLabel "representative.traffic_index" ;
-    wsem:apiVariable "representative.traffic_index" ;
-    skos:definition "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour." ;
-    wsem:canonicalUnit unit:UNITLESS ;
-    wsem:quantityKind qk:Dimensionless .
-:out6 a wsem:OutputVariable ;
-    skos:prefLabel "representative.pollution_event" ;
-    wsem:apiVariable "representative.pollution_event" ;
-    skos:definition "event_flag: Indicateur binaire d'événement de pollution simulé." ;
-    wsem:canonicalUnit unit:UNITLESS ;
-    wsem:quantityKind qk:Dimensionless .
-:out7 a wsem:OutputVariable ;
-    skos:prefLabel "representative.accident_event" ;
-    wsem:apiVariable "representative.accident_event" ;
-    skos:definition "event_flag: Indicateur binaire d'accident simulé." ;
-    wsem:canonicalUnit unit:UNITLESS ;
-    wsem:quantityKind qk:Dimensionless .
-:out8 a wsem:OutputVariable ;
-    skos:prefLabel "kpis.total_mwh" ;
-    wsem:apiVariable "kpis.total_mwh" ;
-    skos:definition "energy: Énergie de toute la période : somme des energy_kwh / 1000." .
-:out9 a wsem:OutputVariable ;
-    skos:prefLabel "kpis.annualized_mwh" ;
-    wsem:apiVariable "kpis.annualized_mwh" ;
-    skos:definition "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée." .
-:out10 a wsem:OutputVariable ;
     skos:prefLabel "kpis.peak_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "kpis.peak_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
     wsem:apiVariable "kpis.peak_kw" ;
-    skos:definition "power: Puissance électrique calculée." ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
-:out11 a wsem:OutputVariable ;
+
+:out11 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "power: Puissance électrique calculée." ;
     skos:prefLabel "kpis.mean_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "kpis.mean_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
     wsem:apiVariable "kpis.mean_kw" ;
-    skos:definition "power: Puissance électrique calculée." ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
-:out12 a wsem:OutputVariable ;
-    skos:prefLabel "kpis.load_factor" ;
-    wsem:apiVariable "kpis.load_factor" ;
+
+:out12 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
     skos:definition "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %." ;
+    skos:prefLabel "kpis.load_factor" ;
+    schema:description "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %." ;
+    schema:name "kpis.load_factor" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.load_factor" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:out13 a wsem:OutputVariable ;
+
+:out13 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube." ;
     skos:prefLabel "kpis.specific_kwh_m_year" ;
-    wsem:apiVariable "kpis.specific_kwh_m_year" ;
-    skos:definition "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube." .
-:out14 a wsem:OutputVariable ;
-    skos:prefLabel "kpis.n_pollution_events" ;
-    wsem:apiVariable "kpis.n_pollution_events" ;
+    schema:description "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube." ;
+    schema:name "kpis.specific_kwh_m_year" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.specific_kwh_m_year" .
+
+:out14 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
     skos:definition "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté." ;
+    skos:prefLabel "kpis.n_pollution_events" ;
+    schema:description "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté." ;
+    schema:name "kpis.n_pollution_events" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.n_pollution_events" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:out15 a wsem:OutputVariable ;
-    skos:prefLabel "kpis.n_accident_events" ;
-    wsem:apiVariable "kpis.n_accident_events" ;
+
+:out15 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
     skos:definition "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté." ;
+    skos:prefLabel "kpis.n_accident_events" ;
+    schema:description "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté." ;
+    schema:name "kpis.n_accident_events" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.n_accident_events" ;
     wsem:canonicalUnit unit:UNITLESS ;
     wsem:quantityKind qk:Dimensionless .
-:out16 a wsem:OutputVariable ;
+
+:out16 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "energy: Somme des énergies des pas natifs de la journée, réalisation 0." ;
     skos:prefLabel "daily.energy_kwh" ;
-    wsem:apiVariable "daily.energy_kwh" ;
-    skos:definition "energy: Somme des énergies des pas natifs de la journée, réalisation 0." .
-:out17 a wsem:OutputVariable ;
-    skos:prefLabel "daily.mean_kw" ;
-    wsem:apiVariable "daily.mean_kw" ;
+    schema:description "energy: Somme des énergies des pas natifs de la journée, réalisation 0." ;
+    schema:name "daily.energy_kwh" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "daily.energy_kwh" .
+
+:out17 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
     skos:definition "power: Moyenne des puissances des pas natifs de la journée, réalisation 0." ;
+    skos:prefLabel "daily.mean_kw" ;
+    schema:description "power: Moyenne des puissances des pas natifs de la journée, réalisation 0." ;
+    schema:name "daily.mean_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "daily.mean_kw" ;
     wsem:canonicalUnit unit:KiloW ;
     wsem:quantityKind qk:Power .
+
+:out2 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "power: Puissance électrique calculée." ;
+    skos:prefLabel "representative.auxiliary_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "representative.auxiliary_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.auxiliary_kw" ;
+    wsem:canonicalUnit unit:KiloW ;
+    wsem:quantityKind qk:Power .
+
+:out3 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "power: Puissance électrique calculée." ;
+    skos:prefLabel "representative.power_kw" ;
+    schema:description "power: Puissance électrique calculée." ;
+    schema:name "representative.power_kw" ;
+    schema:unitCode unit:KiloW ;
+    schema:unitText "kW" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.power_kw" ;
+    wsem:canonicalUnit unit:KiloW ;
+    wsem:quantityKind qk:Power .
+
+:out4 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "energy: Énergie du pas : power_kw × freq_minutes / 60." ;
+    skos:prefLabel "representative.energy_kwh" ;
+    schema:description "energy: Énergie du pas : power_kw × freq_minutes / 60." ;
+    schema:name "representative.energy_kwh" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.energy_kwh" .
+
+:out5 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour." ;
+    skos:prefLabel "representative.traffic_index" ;
+    schema:description "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour." ;
+    schema:name "representative.traffic_index" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.traffic_index" ;
+    wsem:canonicalUnit unit:UNITLESS ;
+    wsem:quantityKind qk:Dimensionless .
+
+:out6 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "event_flag: Indicateur binaire d'événement de pollution simulé." ;
+    skos:prefLabel "representative.pollution_event" ;
+    schema:description "event_flag: Indicateur binaire d'événement de pollution simulé." ;
+    schema:name "representative.pollution_event" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.pollution_event" ;
+    wsem:canonicalUnit unit:UNITLESS ;
+    wsem:quantityKind qk:Dimensionless .
+
+:out7 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "event_flag: Indicateur binaire d'accident simulé." ;
+    skos:prefLabel "representative.accident_event" ;
+    schema:description "event_flag: Indicateur binaire d'accident simulé." ;
+    schema:name "representative.accident_event" ;
+    schema:unitCode unit:UNITLESS ;
+    schema:unitText "1" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "representative.accident_event" ;
+    wsem:canonicalUnit unit:UNITLESS ;
+    wsem:quantityKind qk:Dimensionless .
+
+:out8 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "energy: Énergie de toute la période : somme des energy_kwh / 1000." ;
+    skos:prefLabel "kpis.total_mwh" ;
+    schema:description "energy: Énergie de toute la période : somme des energy_kwh / 1000." ;
+    schema:name "kpis.total_mwh" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.total_mwh" .
+
+:out9 a schema:PropertyValueSpecification,
+        wsem:OutputVariable ;
+    skos:definition "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée." ;
+    skos:prefLabel "kpis.annualized_mwh" ;
+    schema:description "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée." ;
+    schema:name "kpis.annualized_mwh" ;
+    schema:valueRequired true ;
+    wsem:apiVariable "kpis.annualized_mwh" .
+
+<https://doi.org/10.1016/j.softx.2026.102946> a schema:ScholarlyArticle ;
+    schema:name "H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946" .
+
+<https://orcid.org/0000-0003-0242-7377> a schema:Person ;
+    schema:name "Cyril Voyant" .
+

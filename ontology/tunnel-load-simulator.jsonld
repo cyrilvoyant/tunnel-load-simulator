@@ -1,397 +1,1138 @@
 {
   "@context": {
+    "": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#",
     "@vocab": "https://schema.org/",
-    "wsem": "https://w3id.org/websemantic/ns#"
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "qk": "http://qudt.org/vocab/quantitykind/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "unit": "http://qudt.org/vocab/unit/",
+    "wsem": "https://w3id.org/websemantic/ns#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
-  "@type": "SoftwareSourceCode",
-  "@id": "https://doi.org/10.5281/zenodo.20080042",
-  "name": "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)",
-  "description": "Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations.",
-  "codeRepository": "https://github.com/cyrilvoyant/tunnel-load-simulator",
-  "license": "MIT",
-  "programmingLanguage": "Python",
-  "keywords": [
-    "road tunnel",
-    "electricity demand",
-    "Monte Carlo",
-    "synthetic load profile",
-    "SmartTunnel"
-  ],
-  "dateModified": "2026-10-23",
-  "author": [
+  "@graph": [
     {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in0",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "1500",
+      "description": "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur.",
+      "name": "length_m",
+      "skos:definition": "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur.",
+      "skos:prefLabel": "length_m",
+      "unitCode": {
+        "@id": "unit:M"
+      },
+      "unitText": "m",
+      "valueRequired": true,
+      "wsem:apiVariable": "length_m",
+      "wsem:canonicalUnit": {
+        "@id": "unit:M"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Length"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in7",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "LED adaptive",
+      "description": "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage.",
+      "name": "lighting_type",
+      "skos:definition": "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage.",
+      "skos:prefLabel": "lighting_type",
+      "valueRequired": true,
+      "wsem:apiVariable": "lighting_type"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out6",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "event_flag: Indicateur binaire d'événement de pollution simulé.",
+      "name": "representative.pollution_event",
+      "skos:definition": "event_flag: Indicateur binaire d'événement de pollution simulé.",
+      "skos:prefLabel": "representative.pollution_event",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.pollution_event",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in4",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "80",
+      "description": "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000.",
+      "name": "max_depth_m",
+      "skos:definition": "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000.",
+      "skos:prefLabel": "max_depth_m",
+      "unitCode": {
+        "@id": "unit:M"
+      },
+      "unitText": "m",
+      "valueRequired": true,
+      "wsem:apiVariable": "max_depth_m",
+      "wsem:canonicalUnit": {
+        "@id": "unit:M"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Length"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out10",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "kpis.peak_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "kpis.peak_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.peak_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in22",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "7",
+      "description": "Nombre de jours entiers simulés à partir de start_date.",
+      "name": "n_days",
+      "skos:definition": "Nombre de jours entiers simulés à partir de start_date.",
+      "skos:prefLabel": "n_days",
+      "unitCode": {
+        "@id": "unit:DAY"
+      },
+      "unitText": "d",
+      "valueRequired": true,
+      "wsem:apiVariable": "n_days",
+      "wsem:canonicalUnit": {
+        "@id": "unit:DAY"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Time"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in12",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "8.0",
+      "description": "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu.",
+      "name": "morning_peak_hour",
+      "skos:definition": "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu.",
+      "skos:prefLabel": "morning_peak_hour",
+      "unitCode": {
+        "@id": "unit:HR"
+      },
+      "unitText": "h",
+      "valueRequired": true,
+      "wsem:apiVariable": "morning_peak_hour",
+      "wsem:canonicalUnit": {
+        "@id": "unit:HR"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Time"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out12",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %.",
+      "name": "kpis.load_factor",
+      "skos:definition": "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %.",
+      "skos:prefLabel": "kpis.load_factor",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.load_factor",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in25",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "42",
+      "description": "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run.",
+      "name": "base_seed",
+      "skos:definition": "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run.",
+      "skos:prefLabel": "base_seed",
+      "valueRequired": true,
+      "wsem:apiVariable": "base_seed"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out13",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube.",
+      "name": "kpis.specific_kwh_m_year",
+      "skos:definition": "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube.",
+      "skos:prefLabel": "kpis.specific_kwh_m_year",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.specific_kwh_m_year"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out11",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "kpis.mean_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "kpis.mean_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.mean_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in19",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.55",
+      "description": "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur.",
+      "name": "pollution_sensitivity",
+      "skos:definition": "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur.",
+      "skos:prefLabel": "pollution_sensitivity",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "pollution_sensitivity",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in20",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.75",
+      "description": "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur.",
+      "name": "accident_sensitivity",
+      "skos:definition": "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur.",
+      "skos:prefLabel": "accident_sensitivity",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "accident_sensitivity",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out0",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "representative.lighting_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "representative.lighting_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.lighting_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out1",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "representative.ventilation_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "representative.ventilation_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.ventilation_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out3",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "representative.power_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "representative.power_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.power_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in3",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "300",
+      "description": "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000.",
+      "name": "altitude_m",
+      "skos:definition": "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000.",
+      "skos:prefLabel": "altitude_m",
+      "unitCode": {
+        "@id": "unit:M"
+      },
+      "unitText": "m",
+      "valueRequired": true,
+      "wsem:apiVariable": "altitude_m",
+      "wsem:canonicalUnit": {
+        "@id": "unit:M"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Length"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in16",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.06",
+      "description": "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro.",
+      "name": "noise_sigma",
+      "skos:definition": "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro.",
+      "skos:prefLabel": "noise_sigma",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "noise_sigma",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out8",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "energy: Énergie de toute la période : somme des energy_kwh / 1000.",
+      "name": "kpis.total_mwh",
+      "skos:definition": "energy: Énergie de toute la période : somme des energy_kwh / 1000.",
+      "skos:prefLabel": "kpis.total_mwh",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.total_mwh"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in24",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "3",
+      "description": "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice.",
+      "name": "n_runs",
+      "skos:definition": "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice.",
+      "skos:prefLabel": "n_runs",
+      "unitCode": {
+        "@id": "unit:NUM"
+      },
+      "unitText": "count",
+      "valueRequired": true,
+      "wsem:apiVariable": "n_runs",
+      "wsem:canonicalUnit": {
+        "@id": "unit:NUM"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Count"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in6",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "peri-urban",
+      "description": "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée.",
+      "name": "tunnel_context",
+      "skos:definition": "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée.",
+      "skos:prefLabel": "tunnel_context",
+      "valueRequired": true,
+      "wsem:apiVariable": "tunnel_context"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out14",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté.",
+      "name": "kpis.n_pollution_events",
+      "skos:definition": "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté.",
+      "skos:prefLabel": "kpis.n_pollution_events",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.n_pollution_events",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in18",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.015",
+      "description": "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée.",
+      "name": "accident_probability_per_day",
+      "skos:definition": "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée.",
+      "skos:prefLabel": "accident_probability_per_day",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "accident_probability_per_day",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in2",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "2",
+      "description": "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube.",
+      "name": "n_lanes_per_tube",
+      "skos:definition": "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube.",
+      "skos:prefLabel": "n_lanes_per_tube",
+      "unitCode": {
+        "@id": "unit:NUM"
+      },
+      "unitText": "count",
+      "valueRequired": true,
+      "wsem:apiVariable": "n_lanes_per_tube",
+      "wsem:canonicalUnit": {
+        "@id": "unit:NUM"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Count"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out9",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée.",
+      "name": "kpis.annualized_mwh",
+      "skos:definition": "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée.",
+      "skos:prefLabel": "kpis.annualized_mwh",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.annualized_mwh"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in17",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.05",
+      "description": "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée.",
+      "name": "pollution_probability_per_day",
+      "skos:definition": "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée.",
+      "skos:prefLabel": "pollution_probability_per_day",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "pollution_probability_per_day",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://orcid.org/0000-0003-0242-7377",
+      "@type": "Person",
+      "name": "Cyril Voyant"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out16",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "energy: Somme des énergies des pas natifs de la journée, réalisation 0.",
+      "name": "daily.energy_kwh",
+      "skos:definition": "energy: Somme des énergies des pas natifs de la journée, réalisation 0.",
+      "skos:prefLabel": "daily.energy_kwh",
+      "valueRequired": true,
+      "wsem:apiVariable": "daily.energy_kwh"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in11",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "1.0",
+      "description": "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS.",
+      "name": "traffic_level",
+      "skos:definition": "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS.",
+      "skos:prefLabel": "traffic_level",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "traffic_level",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in15",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "0.65",
+      "description": "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index.",
+      "name": "traffic_sensitivity",
+      "skos:definition": "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index.",
+      "skos:prefLabel": "traffic_sensitivity",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "traffic_sensitivity",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out4",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "energy: Énergie du pas : power_kw × freq_minutes / 60.",
+      "name": "representative.energy_kwh",
+      "skos:definition": "energy: Énergie du pas : power_kw × freq_minutes / 60.",
+      "skos:prefLabel": "representative.energy_kwh",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.energy_kwh"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in21",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "2025-01-01",
+      "description": "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle.",
+      "name": "start_date",
+      "skos:definition": "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle.",
+      "skos:prefLabel": "start_date",
+      "valueRequired": true,
+      "wsem:apiVariable": "start_date"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in5",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "2.0",
+      "description": "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20.",
+      "name": "gradient_percent",
+      "skos:definition": "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20.",
+      "skos:prefLabel": "gradient_percent",
+      "unitCode": {
+        "@id": "unit:PERCENT"
+      },
+      "unitText": "%",
+      "valueRequired": true,
+      "wsem:apiVariable": "gradient_percent",
+      "wsem:canonicalUnit": {
+        "@id": "unit:PERCENT"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:DimensionlessRatio"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in8",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "longitudinal",
+      "description": "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements.",
+      "name": "ventilation_type",
+      "skos:definition": "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements.",
+      "skos:prefLabel": "ventilation_type",
+      "valueRequired": true,
+      "wsem:apiVariable": "ventilation_type"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out15",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté.",
+      "name": "kpis.n_accident_events",
+      "skos:definition": "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté.",
+      "skos:prefLabel": "kpis.n_accident_events",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "kpis.n_accident_events",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in9",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "35.0",
+      "description": "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur.",
+      "name": "aux_kw_per_km_tube",
+      "skos:definition": "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur.",
+      "skos:prefLabel": "aux_kw_per_km_tube",
+      "valueRequired": true,
+      "wsem:apiVariable": "aux_kw_per_km_tube"
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out17",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Moyenne des puissances des pas natifs de la journée, réalisation 0.",
+      "name": "daily.mean_kw",
+      "skos:definition": "power: Moyenne des puissances des pas natifs de la journée, réalisation 0.",
+      "skos:prefLabel": "daily.mean_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "daily.mean_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in23",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "60",
+      "description": "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60.",
+      "name": "freq_minutes",
+      "skos:definition": "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60.",
+      "skos:prefLabel": "freq_minutes",
+      "unitCode": {
+        "@id": "unit:MIN"
+      },
+      "unitText": "min",
+      "valueRequired": true,
+      "wsem:apiVariable": "freq_minutes",
+      "wsem:canonicalUnit": {
+        "@id": "unit:MIN"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Time"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in1",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "2",
+      "description": "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies.",
+      "name": "n_tubes",
+      "skos:definition": "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies.",
+      "skos:prefLabel": "n_tubes",
+      "unitCode": {
+        "@id": "unit:NUM"
+      },
+      "unitText": "count",
+      "valueRequired": true,
+      "wsem:apiVariable": "n_tubes",
+      "wsem:canonicalUnit": {
+        "@id": "unit:NUM"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Count"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out7",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "event_flag: Indicateur binaire d'accident simulé.",
+      "name": "representative.accident_event",
+      "skos:definition": "event_flag: Indicateur binaire d'accident simulé.",
+      "skos:prefLabel": "representative.accident_event",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.accident_event",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in10",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "40.0",
+      "description": "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global.",
+      "name": "base_fixed_kw",
+      "skos:definition": "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global.",
+      "skos:prefLabel": "base_fixed_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "base_fixed_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in13",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "18.0",
+      "description": "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu.",
+      "name": "evening_peak_hour",
+      "skos:definition": "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu.",
+      "skos:prefLabel": "evening_peak_hour",
+      "unitCode": {
+        "@id": "unit:HR"
+      },
+      "unitText": "h",
+      "valueRequired": true,
+      "wsem:apiVariable": "evening_peak_hour",
+      "wsem:canonicalUnit": {
+        "@id": "unit:HR"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Time"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in14",
+      "@type": [
+        "wsem:ParameterDefinition",
+        "PropertyValueSpecification"
+      ],
+      "defaultValue": "1.4",
+      "description": "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir.",
+      "name": "peak_width_h",
+      "skos:definition": "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir.",
+      "skos:prefLabel": "peak_width_h",
+      "unitCode": {
+        "@id": "unit:HR"
+      },
+      "unitText": "h",
+      "valueRequired": true,
+      "wsem:apiVariable": "peak_width_h",
+      "wsem:canonicalUnit": {
+        "@id": "unit:HR"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Time"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out5",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour.",
+      "name": "representative.traffic_index",
+      "skos:definition": "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour.",
+      "skos:prefLabel": "representative.traffic_index",
+      "unitCode": {
+        "@id": "unit:UNITLESS"
+      },
+      "unitText": "1",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.traffic_index",
+      "wsem:canonicalUnit": {
+        "@id": "unit:UNITLESS"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Dimensionless"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out2",
+      "@type": [
+        "wsem:OutputVariable",
+        "PropertyValueSpecification"
+      ],
+      "description": "power: Puissance électrique calculée.",
+      "name": "representative.auxiliary_kw",
+      "skos:definition": "power: Puissance électrique calculée.",
+      "skos:prefLabel": "representative.auxiliary_kw",
+      "unitCode": {
+        "@id": "unit:KiloW"
+      },
+      "unitText": "kW",
+      "valueRequired": true,
+      "wsem:apiVariable": "representative.auxiliary_kw",
+      "wsem:canonicalUnit": {
+        "@id": "unit:KiloW"
+      },
+      "wsem:quantityKind": {
+        "@id": "qk:Power"
+      }
+    },
+    {
+      "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#software",
+      "@type": [
+        "wsem:Software",
+        "SoftwareSourceCode"
+      ],
+      "author": [
+        {
+          "@id": "_:N37605b5d555e498bb3b5a5f2c417dde5"
+        },
+        {
+          "@id": "https://orcid.org/0000-0003-0242-7377"
+        }
+      ],
+      "citation": {
+        "@id": "https://doi.org/10.1016/j.softx.2026.102946"
+      },
+      "codeRepository": {
+        "@id": "https://github.com/cyrilvoyant/tunnel-load-simulator"
+      },
+      "dateModified": {
+        "@type": "xsd:date",
+        "@value": "2026-10-23"
+      },
+      "dcterms:modified": "2026-10-23",
+      "description": "Generates the electricity demand of a road tunnel from its geometry, traffic, lighting and ventilation, with random pollution episodes and accidents, over Monte Carlo realizations.",
+      "identifier": {
+        "@id": "https://doi.org/10.5281/zenodo.20080042"
+      },
+      "keywords": [
+        "road tunnel",
+        "electricity demand",
+        "Monte Carlo",
+        "synthetic load profile",
+        "SmartTunnel"
+      ],
+      "license": "MIT",
+      "name": "Tunnel Load Simulator: synthetic electricity demand of road tunnels (Python, Streamlit)",
+      "owl:sameAs": {
+        "@id": "https://doi.org/10.5281/zenodo.20080042"
+      },
+      "programmingLanguage": "Python",
+      "wsem:conceptDOI": "https://doi.org/10.5281/zenodo.20080042",
+      "wsem:declaresOutput": [
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out0"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out1"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out2"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out3"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out4"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out5"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out6"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out7"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out8"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out9"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out10"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out11"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out12"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out13"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out14"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out15"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out16"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#out17"
+        }
+      ],
+      "wsem:declaresParameter": [
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in0"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in1"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in2"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in3"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in4"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in5"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in6"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in7"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in8"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in9"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in10"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in11"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in12"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in13"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in14"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in15"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in16"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in17"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in18"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in19"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in20"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in21"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in22"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in23"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in24"
+        },
+        {
+          "@id": "https://cyrilvoyant.github.io/ontology/tunnel-load-simulator#in25"
+        }
+      ]
+    },
+    {
+      "@id": "_:N37605b5d555e498bb3b5a5f2c417dde5",
       "@type": "Person",
       "name": "Haytham El-Houari"
     },
     {
-      "@type": "Person",
-      "name": "Cyril Voyant",
-      "@id": "https://orcid.org/0000-0003-0242-7377"
-    }
-  ],
-  "citation": {
-    "@type": "ScholarlyArticle",
-    "@id": "https://doi.org/10.1016/j.softx.2026.102946",
-    "name": "H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946"
-  },
-  "wsem:declaresParameter": [
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "length_m",
-      "description": "Longueur du tunnel commune aux tubes ; convertie en kilomètres pour les charges proportionnelles à la longueur.",
-      "valueRequired": true,
-      "unitText": "m",
-      "unitCode": "http://qudt.org/vocab/unit/M",
-      "defaultValue": "1500"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "n_tubes",
-      "description": "Nombre de tubes ; multiplie les charges de ventilation et d’auxiliaires et contribue au nombre total de voies.",
-      "valueRequired": true,
-      "unitText": "count",
-      "unitCode": "http://qudt.org/vocab/unit/NUM",
-      "defaultValue": "2"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "n_lanes_per_tube",
-      "description": "Nombre de voies dans chaque tube ; l’éclairage est dimensionné sur n_tubes × n_lanes_per_tube.",
-      "valueRequired": true,
-      "unitText": "count",
-      "unitCode": "http://qudt.org/vocab/unit/NUM",
-      "defaultValue": "2"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "altitude_m",
-      "description": "Altitude utilisée dans le facteur de ventilation : 1 + max(altitude_m − 500, 0)/6000.",
-      "valueRequired": true,
-      "unitText": "m",
-      "unitCode": "http://qudt.org/vocab/unit/M",
-      "defaultValue": "300"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "max_depth_m",
-      "description": "Profondeur maximale utilisée pour les auxiliaires : facteur 1 + min(max_depth_m, 800)/6000.",
-      "valueRequired": true,
-      "unitText": "m",
-      "unitCode": "http://qudt.org/vocab/unit/M",
-      "defaultValue": "80"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "gradient_percent",
-      "description": "Pente en pourcentage, utilisée dans le facteur de ventilation 1 + abs(gradient_percent)/20.",
-      "valueRequired": true,
-      "unitText": "%",
-      "unitCode": "http://qudt.org/vocab/unit/PERCENT",
-      "defaultValue": "2.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "tunnel_context",
-      "description": "Catégorie appliquant un multiplicateur au profil de trafic ; urban ajoute également une composante de pointe en soirée.",
-      "valueRequired": true,
-      "defaultValue": "peri-urban"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "lighting_type",
-      "description": "Catégorie déterminant la puissance spécifique installée, le couplage au trafic et la fraction minimale d’éclairage.",
-      "valueRequired": true,
-      "defaultValue": "LED adaptive"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "ventilation_type",
-      "description": "Catégorie déterminant la charge de ventilation par kilomètre et par tube, modulée par trafic, altitude, pente et événements.",
-      "valueRequired": true,
-      "defaultValue": "longitudinal"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "aux_kw_per_km_tube",
-      "description": "Charge de référence des auxiliaires en kW/(km·tube), multipliée par la longueur, les tubes et le facteur de profondeur.",
-      "valueRequired": true,
-      "defaultValue": "35.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "base_fixed_kw",
-      "description": "Puissance fixe ajoutée une seule fois à la demande totale du tunnel, avant le bruit multiplicatif global.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW",
-      "defaultValue": "40.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "traffic_level",
-      "description": "Multiplicateur du profil synthétique de trafic normalisé ; l’indice final est borné entre 0 et 2 dans TLS.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "1.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "morning_peak_hour",
-      "description": "Heure du centre du pic gaussien du matin, comprise entre 0 inclus et 24 exclu.",
-      "valueRequired": true,
-      "unitText": "h",
-      "unitCode": "http://qudt.org/vocab/unit/HR",
-      "defaultValue": "8.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "evening_peak_hour",
-      "description": "Heure du centre du pic gaussien du soir, comprise entre 0 inclus et 24 exclu.",
-      "valueRequired": true,
-      "unitText": "h",
-      "unitCode": "http://qudt.org/vocab/unit/HR",
-      "defaultValue": "18.0"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "peak_width_h",
-      "description": "Écart-type temporel du pic gaussien du matin en heures ; TLS utilise 1,15 fois cette valeur pour le soir.",
-      "valueRequired": true,
-      "unitText": "h",
-      "unitCode": "http://qudt.org/vocab/unit/HR",
-      "defaultValue": "1.4"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "traffic_sensitivity",
-      "description": "Coefficient du trafic dans la charge de ventilation : facteur 0,15 + traffic_sensitivity × traffic_index.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.65"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "noise_sigma",
-      "description": "Écart-type du bruit gaussien relatif appliqué à la puissance totale ; la puissance résultante est ramenée au minimum à zéro.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.06"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "pollution_probability_per_day",
-      "description": "Probabilité journalière de tirer un événement synthétique de pollution ; TLS tire ensuite son début et sa durée.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.05"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "accident_probability_per_day",
-      "description": "Probabilité journalière de tirer un événement synthétique d’accident ; TLS tire ensuite son début et sa durée.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.015"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "pollution_sensitivity",
-      "description": "Coefficient de surcroît de ventilation lorsqu’un événement de pollution est actif : ajout à 1 + pollution_sensitivity × indicateur.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.55"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "accident_sensitivity",
-      "description": "Coefficient de surcroît de ventilation lorsqu’un accident est actif ; il s’ajoute au coefficient de pollution dans le même facteur.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS",
-      "defaultValue": "0.75"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "start_date",
-      "description": "Date de début au format YYYY-MM-DD ; détermine le calendrier, les jours de semaine et les saisons du modèle.",
-      "valueRequired": true,
-      "defaultValue": "2025-01-01"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "n_days",
-      "description": "Nombre de jours entiers simulés à partir de start_date.",
-      "valueRequired": true,
-      "unitText": "d",
-      "unitCode": "http://qudt.org/vocab/unit/DAY",
-      "defaultValue": "7"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "freq_minutes",
-      "description": "Durée constante du pas interne ; l’énergie du pas vaut puissance × freq_minutes/60.",
-      "valueRequired": true,
-      "unitText": "min",
-      "unitCode": "http://qudt.org/vocab/unit/MIN",
-      "defaultValue": "60"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "n_runs",
-      "description": "Nombre de réalisations Monte Carlo indépendantes ; chaque réalisation utilise base_seed + son indice.",
-      "valueRequired": true,
-      "unitText": "count",
-      "unitCode": "http://qudt.org/vocab/unit/NUM",
-      "defaultValue": "3"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "base_seed",
-      "description": "Identifiant initial du générateur pseudo-aléatoire ; chaque réalisation utilise base_seed + run.",
-      "valueRequired": true,
-      "defaultValue": "42"
-    }
-  ],
-  "wsem:declaresOutput": [
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.lighting_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.ventilation_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.auxiliary_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.power_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.energy_kwh",
-      "description": "energy: Énergie du pas : power_kw × freq_minutes / 60.",
-      "valueRequired": true
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.traffic_index",
-      "description": "relative_traffic_index: Indice relatif de trafic ; pas un nombre de véhicules par jour.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.pollution_event",
-      "description": "event_flag: Indicateur binaire d'événement de pollution simulé.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "representative.accident_event",
-      "description": "event_flag: Indicateur binaire d'accident simulé.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.total_mwh",
-      "description": "energy: Énergie de toute la période : somme des energy_kwh / 1000.",
-      "valueRequired": true
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.annualized_mwh",
-      "description": "annualized_energy: Extrapolation : total_mwh × 365 / n_days ; pas une année observée.",
-      "valueRequired": true
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.peak_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.mean_kw",
-      "description": "power: Puissance électrique calculée.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.load_factor",
-      "description": "power_ratio: mean_kw / peak_kw par réalisation ; sans dimension, 0,6 équivaut à 60 %.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.specific_kwh_m_year",
-      "description": "length_normalized_annualized_energy: annualized_mwh × 1000 / length_m ; ensemble des tubes, par mètre de longueur du tunnel, pas par mètre-tube.",
-      "valueRequired": true
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.n_pollution_events",
-      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série pollution_event ; un événement actif au premier pas n'est pas compté.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "kpis.n_accident_events",
-      "description": "transition_count: Nombre de transitions 0 vers 1 dans la série accident_event ; un événement actif au premier pas n'est pas compté.",
-      "valueRequired": true,
-      "unitText": "1",
-      "unitCode": "http://qudt.org/vocab/unit/UNITLESS"
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "daily.energy_kwh",
-      "description": "energy: Somme des énergies des pas natifs de la journée, réalisation 0.",
-      "valueRequired": true
-    },
-    {
-      "@type": "PropertyValueSpecification",
-      "name": "daily.mean_kw",
-      "description": "power: Moyenne des puissances des pas natifs de la journée, réalisation 0.",
-      "valueRequired": true,
-      "unitText": "kW",
-      "unitCode": "http://qudt.org/vocab/unit/KiloW"
+      "@id": "https://doi.org/10.1016/j.softx.2026.102946",
+      "@type": "ScholarlyArticle",
+      "name": "H. El-Houari, C. Voyant. Tunnel Load Simulator: an open-source generator for synthetic road-tunnel electricity demand. SoftwareX 35 (2026) 102946"
     }
   ]
 }
