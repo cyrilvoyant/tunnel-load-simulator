@@ -507,5 +507,7 @@
   "limits": [
     "First-order generator to calibrate on measurements before engineering use; not a certification or a prediction of a real tunnel's consumption."
   ],
-  "full_contract": "https://github.com/cyrilvoyant/websemantic (pack tls: LLM-CONTRACT.md, ontology.ttl, shapes.ttl)"
+  "full_contract": "https://github.com/cyrilvoyant/websemantic (pack tls: LLM-CONTRACT.md, ontology.ttl, shapes.ttl)",
+  "integration_status": "documentation_only_not_registered_with_websemantic",
+  "execution_notice": "This descriptor documents the software. It is not a registered WebSemantic adapter, an executable API, or evidence that the full scientific workflow has been validated."
 }
